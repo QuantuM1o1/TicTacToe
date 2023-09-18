@@ -31,6 +31,7 @@ public:
             vector.push_back(innerVector);
         }
     }
+    //checks if the board full
     bool noRoom()
     {
         for (int i = 0; i < dimension * dimension; i++)
@@ -46,6 +47,7 @@ public:
         }
         return true;
     }
+    //prints a board
     void currentSituation()
     {
         for (int i = 0; i < dimension; i++)
@@ -228,6 +230,52 @@ public:
         }
         return -1;
     }
+    int checkPossibleRow(char c1, char c2)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = false;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[i][j] == c2)
+                {
+                    count = false;
+                    break;
+                }
+                if (vector[i][j] == c1)
+                {
+                    count = true;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int checkUnoccupiedRow(char c)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = true;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[i][j] == c)
+                {
+                    count = false;
+                    break;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     int checkColumn(char c1, char c2)
     {
         int count;
@@ -252,6 +300,52 @@ public:
         }
         return -1;
     }
+    int checkPossibleColumn(char c1, char c2)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = false;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[j][i] == c2)
+                {
+                    count = false;
+                    break;
+                }
+                if (vector[j][i] == c1)
+                {
+                    count = true;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int checkUnoccupiedColumn(char c)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = true;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[j][i] == c)
+                {
+                    count = false;
+                    break;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     bool checkMainDiagonal(char c1, char c2)
     {
         int count = 0;
@@ -267,6 +361,49 @@ public:
             }
         }
         if (count == dimension - 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool checkPossibleMainDiagonal(char c1, char c2)
+    {
+        int count = 0;
+        for (int i = 0; i < dimension; i++)
+        {
+            if (vector[i][i] == c2)
+            {
+                return false;
+            }
+            if (vector[i][i] == c1)
+            {
+                count++;
+            }
+        }
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool checkUnoccupiedMainDiagonal(char c)
+    {
+        bool count = true;
+        for (int i = 0; i < dimension; i++)
+        {
+            if (vector[i][i] == c)
+            {
+                count = false;
+                break;
+            }
+        }
+        if (count)
         {
             return true;
         }
@@ -299,6 +436,52 @@ public:
             return false;
         }
     }
+    bool checkPossibleSecondDiagonal(char c1, char c2)
+    {
+        int count = 0;
+        for (int i = 0; i < dimension; i++)
+        {
+            int j = dimension - 1 - i;
+            if (vector[i][j] == c2)
+            {
+                return false;
+            }
+            if (vector[i][j] == c1)
+            {
+                count++;
+            }
+        }
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool checkUnoccupiedSecondDiagonal(char c)
+    {
+        bool count = true;
+        for (int i = 0; i < dimension; i++)
+        {
+            int j = dimension - 1 - i;
+            if (vector[i][j] == c)
+            {
+                count = false;
+                break;
+            }
+        }
+        if (count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //puts mark in a first free square of a particular row
     int putCharInRow(int x)
     {
         for (int i = 0; i < dimension; i++)
@@ -309,6 +492,7 @@ public:
             }
         }
     }
+    //puts mark in a first free square of a particular column
     int putCharInColumn(int x)
     {
         for (int i = 0; i < dimension; i++)
@@ -319,6 +503,7 @@ public:
             }
         }
     }
+    //puts mark in a first free square of a main diagonal
     int putCharInMainDiagonal()
     {
         for (int i = 0; i < dimension; i++)
@@ -329,6 +514,7 @@ public:
             }
         }
     }
+    //puts mark in a first free square of a second diagonal
     int putCharInSecondDiagonal()
     {
         for (int i = 0; i < dimension; i++)
@@ -362,6 +548,7 @@ public:
         }
         return false;
     }
+    //checks top left corner
     int checkCorner1(char c1, char c2)
     {
         if ((vector[0][0] != c1) && (vector[0][0] != c2) && !this->atleastOneInRow(0, c2) && !this->atleastOneInColumn(0, c2))
@@ -381,6 +568,7 @@ public:
             return -1;
         }
     }
+    //checks top right corner
     int checkCorner2(char c1, char c2)
     {
         if ((vector[0][dimension - 1] != c1) && (vector[0][dimension - 1] != c2) && !this->atleastOneInRow(dimension - 1, c2) && !this->atleastOneInColumn(0, c2))
@@ -400,6 +588,7 @@ public:
             return -1;
         }
     }
+    //checks bottom left corner
     int checkCorner3(char c1, char c2)
     {
         if ((vector[dimension - 1][0] != c1) && (vector[dimension - 1][0] != c2) && !this->atleastOneInRow(0, c2) && !this->atleastOneInColumn(dimension - 1, c2))
@@ -419,6 +608,7 @@ public:
             return -1;
         }
     }
+    //checks bottom right corner
     int checkCorner4(char c1, char c2)
     {
         if ((vector[dimension - 1][dimension - 1] != c1) && (vector[dimension - 1][dimension - 1] != c2) && !this->atleastOneInRow(dimension - 1, c2) && !this->atleastOneInColumn(dimension - 1, c2))
@@ -471,7 +661,7 @@ public:
             return ((grid.getDimension() * grid.getDimension() + 1) / 2);
         }
         //check if can win this turn
-        if (grid.checkRow(marks, secondPlayer.marks) != -1)
+        else if (grid.checkRow(marks, secondPlayer.marks) != -1)
         {
             x = grid.checkRow(marks, secondPlayer.marks);
             return grid.putCharInRow(x);
@@ -524,6 +714,44 @@ public:
         else if (grid.checkCorner4(marks, secondPlayer.marks) != -1)
         {
             return grid.checkCorner4(marks, secondPlayer.marks);
+        }
+        //check possible wins
+        else if (grid.checkPossibleRow(secondPlayer.marks, marks) != -1)
+        {
+            x = grid.checkPossibleRow(secondPlayer.marks, marks);
+            return grid.putCharInRow(x);
+        }
+        else if (grid.checkPossibleColumn(secondPlayer.marks, marks) != -1)
+        {
+            x = grid.checkPossibleColumn(secondPlayer.marks, marks);
+            return grid.putCharInColumn(x);
+        }
+        else if (grid.checkPossibleMainDiagonal(secondPlayer.marks, marks))
+        {
+            return grid.putCharInMainDiagonal();
+        }
+        else if (grid.checkPossibleSecondDiagonal(secondPlayer.marks, marks))
+        {
+            return grid.putCharInSecondDiagonal();
+        }
+        //check for an unoccupied 
+        else if (grid.checkUnoccupiedRow(secondPlayer.marks) != -1)
+        {
+            x = grid.checkUnoccupiedRow(secondPlayer.marks);
+            return grid.putCharInRow(x);
+        }
+        else if (grid.checkUnoccupiedColumn(secondPlayer.marks) != -1)
+        {
+            x = grid.checkUnoccupiedColumn(secondPlayer.marks);
+            return grid.putCharInColumn(x);
+        }
+        else if (grid.checkUnoccupiedMainDiagonal(secondPlayer.marks))
+        {
+            return grid.putCharInMainDiagonal();
+        }
+        else if (grid.checkUnoccupiedSecondDiagonal(secondPlayer.marks))
+        {
+            return grid.putCharInSecondDiagonal();
         }
         else
         {
