@@ -86,6 +86,44 @@
         {
             return grid->checkCorner4(this->marks, secondPlayer.marks);
         }
+        //check possible wins
+        else if (grid->checkPossibleRow(this->marks, secondPlayer.marks) != -1)
+        {
+            x = grid->checkPossibleRow(this->marks, secondPlayer.marks);
+            return grid->putCharInRow(x);
+        }
+        else if (grid->checkPossibleColumn(this->marks, secondPlayer.marks) != -1)
+        {
+            x = grid->checkPossibleColumn(this->marks, secondPlayer.marks);
+            return grid->putCharInColumn(x);
+        }
+        else if (grid->checkPossibleMainDiagonal(this->marks, secondPlayer.marks))
+        {
+            return grid->putCharInMainDiagonal();
+        }
+        else if (grid->checkPossibleSecondDiagonal(this->marks, secondPlayer.marks))
+        {
+            return grid->putCharInSecondDiagonal();
+        }
+        //check for an unoccupied 
+        else if (grid->checkUnoccupiedRow(secondPlayer.marks) != -1)
+        {
+            x = grid->checkUnoccupiedRow(secondPlayer.marks);
+            return grid->putCharInRow(x);
+        }
+        else if (grid->checkUnoccupiedColumn(secondPlayer.marks) != -1)
+        {
+            x = grid->checkUnoccupiedColumn(secondPlayer.marks);
+            return grid->putCharInColumn(x);
+        }
+        else if (grid->checkUnoccupiedMainDiagonal(secondPlayer.marks))
+        {
+            return grid->putCharInMainDiagonal();
+        }
+        else if (grid->checkUnoccupiedSecondDiagonal(secondPlayer.marks))
+        {
+            return grid->putCharInSecondDiagonal();
+        }
         else
         {
             for (int i = 1; i <= (grid->getDimension() * grid->getDimension()); i++)

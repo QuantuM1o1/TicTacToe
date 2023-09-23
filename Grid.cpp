@@ -227,6 +227,52 @@
         }
         return -1;
     }
+    int Grid::checkPossibleRow(char c1, char c2)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = false;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[i][j] == c2)
+                {
+                    count = false;
+                    break;
+                }
+                if (vector[i][j] == c1)
+                {
+                    count = true;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int Grid::checkUnoccupiedRow(char c)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = true;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[i][j] == c)
+                {
+                    count = false;
+                    break;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     int Grid::checkColumn(char c1, char c2)
     {
         int count;
@@ -245,6 +291,52 @@
                 }
             }
             if (count == (dimension - 1))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int Grid::checkPossibleColumn(char c1, char c2)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = false;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[j][i] == c2)
+                {
+                    count = false;
+                    break;
+                }
+                if (vector[j][i] == c1)
+                {
+                    count = true;
+                }
+            }
+            if (count)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    int Grid::checkUnoccupiedColumn(char c)
+    {
+        bool count;
+        for (int i = 0; i < dimension; i++)
+        {
+            count = true;
+            for (int j = 0; j < dimension; j++)
+            {
+                if (vector[j][i] == c)
+                {
+                    count = false;
+                    break;
+                }
+            }
+            if (count)
             {
                 return i;
             }
@@ -274,6 +366,49 @@
             return false;
         }
     }
+    bool Grid::checkPossibleMainDiagonal(char c1, char c2)
+    {
+        int count = 0;
+        for (int i = 0; i < dimension; i++)
+        {
+            if (vector[i][i] == c2)
+            {
+                return false;
+            }
+            if (vector[i][i] == c1)
+            {
+                count++;
+            }
+        }
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool Grid::checkUnoccupiedMainDiagonal(char c)
+    {
+        bool count = true;
+        for (int i = 0; i < dimension; i++)
+        {
+            if (vector[i][i] == c)
+            {
+                count = false;
+                break;
+            }
+        }
+        if (count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     bool Grid::checkSecondDiagonal(char c1, char c2)
     {
         int count = 0;
@@ -290,6 +425,51 @@
             }
         }
         if (count == dimension - 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool Grid::checkPossibleSecondDiagonal(char c1, char c2)
+    {
+        int count = 0;
+        for (int i = 0; i < dimension; i++)
+        {
+            int j = dimension - 1 - i;
+            if (vector[i][j] == c2)
+            {
+                return false;
+            }
+            if (vector[i][j] == c1)
+            {
+                count++;
+            }
+        }
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool Grid::checkUnoccupiedSecondDiagonal(char c)
+    {
+        bool count = true;
+        for (int i = 0; i < dimension; i++)
+        {
+            int j = dimension - 1 - i;
+            if (vector[i][j] == c)
+            {
+                count = false;
+                break;
+            }
+        }
+        if (count)
         {
             return true;
         }

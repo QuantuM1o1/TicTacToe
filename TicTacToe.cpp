@@ -56,10 +56,6 @@ int main()
             std::cin >> choice;
         } while (choice != 3 && choice != 5);
         newGrid->setDimension(choice);
-        if (!player1->isCPU())
-        {
-
-        }
         do
         {
             std::cout << "Do you want to play as: " << std::endl;

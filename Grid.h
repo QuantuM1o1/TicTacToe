@@ -22,9 +22,17 @@ public:
     char checkSquare(int x);
     void setMark(char c, int x);
     int checkRow(char c1, char c2);
+    int checkPossibleRow(char c1, char c2);
+    int checkUnoccupiedRow(char c);
     int checkColumn(char c1, char c2);
+    int checkPossibleColumn(char c1, char c2);
+    int checkUnoccupiedColumn(char c);
     bool checkMainDiagonal(char c1, char c2);
+    bool checkPossibleMainDiagonal(char c1, char c2);
+    bool checkUnoccupiedMainDiagonal(char c);
     bool checkSecondDiagonal(char c1, char c2);
+    bool checkPossibleSecondDiagonal(char c1, char c2);
+    bool checkUnoccupiedSecondDiagonal(char c);
     int putCharInRow(int x);
     int putCharInColumn(int x);
     int putCharInMainDiagonal();
